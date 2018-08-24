@@ -1,0 +1,6 @@
+
+出错的链接是https://bj.lianjia.com/xiaoqu/taoranting1/，错误的原因是'NoneType' object has no attribute 'find_all'
+出错的链接是https://bj.lianjia.com/xiaoqu/fuchengmen/，错误的原因是'NoneType' object has no attribute 'find_all'
+出错的链接是https://bj.lianjia.com/xiaoqu/qingta1/，错误的原因是'NoneType' object has no attribute 'find_all'
+出错的链接是https://bj.lianjia.com/xiaoqu/baishanzhen/，错误的原因是list index out of range
+出错的链接是https://bj.lianjia.com/xiaoqu/huairouqita1/，错误的原因是list index out of range
