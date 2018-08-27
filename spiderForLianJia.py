@@ -23,7 +23,7 @@ class spiderForLianJia:
             linkList = []
             link_all = "https://"+city+".lianjia.com"
             link_one = "https://"+city+".lianjia.com/xiaoqu/"
-            response_one = requests.get(link_one)
+            response_one = requests.get(link_one,verify=False)
             soup_one = BeautifulSoup(response_one.text,"lxml")
             divErShouFang = soup_one.find_all("div",attrs={"data-role":"ershoufang"})[0]#根据html5元素分析页面
             regionTwoListLinks = divErShouFang.find_all("a")
@@ -35,7 +35,7 @@ class spiderForLianJia:
                     link_two = link_all + regionTwoLink["href"]
                 if not link_two.startswith("https//"+city):
                     remotePlace = True
-                response_two =requests.get(link_two)
+                response_two =requests.get(link_two,verify=False)
                 soup_two = BeautifulSoup(response_two.text,"lxml")
                 divErShouFang2 = soup_two.find_all("div",attrs={"data-role":"ershoufang"})[0].find_all("div")[1]
 
@@ -82,14 +82,14 @@ class spiderForLianJia:
         pageLinks=[]
         while count <5:
             try:
-                responseOne = requests.get(link)
+                responseOne = requests.get(link,verify=False)
                 soup_one =    BeautifulSoup(responseOne.text,"lxml")
                 numOfPage = eval(soup_one.find_all("div",attrs={"class":"page-box house-lst-page-box"})[0]["page-data"])["totalPage"]
                 urlCity =link.split("//")[1].split(".")[0]
                 whetherOther = (urlCity!=city)
                 for i in range(1,numOfPage+1):
                     linkDetail = link+ "pg"+str(i)
-                    responseDetail =  requests.get(linkDetail)
+                    responseDetail =  requests.get(linkDetail,verify=False)
                     soup_detail =  BeautifulSoup(responseDetail.text,"lxml")
                     soupDetailList  = soup_detail.find("ul",attrs={"class":"listContent"}).find_all("li")
                     m = 0
