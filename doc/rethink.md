@@ -44,3 +44,7 @@ reason:
 * 由于读取文件编码错误
 solution:
   修正pyreqs.py第74行的 encoding = encoding 为encoding ="utf-8"
+5.
+problem:
+* 重拾git
+solution :ref:http://www.cnblogs.com/specter45/p/github.html
