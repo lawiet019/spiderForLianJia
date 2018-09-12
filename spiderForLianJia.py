@@ -8,10 +8,10 @@ class spiderForLianJia:
     Args:
         cityList: the list of cities we intend to crawl from Lianjia, set the default value be empty
     '''
-    def __init__(self,cityList={}):
+    def __init__(self,cityList,cityDict):
         self.cityList = cityList
         self.linkDict = {}
-        self.cityDict={"bj":"北京"}
+        self.cityDict= cityDict
     '''
     get links of all the regions(in detail),both save the results in the linkDict(the attr of the class) and files in the ./doc/link named after the city
 
@@ -65,7 +65,7 @@ class spiderForLianJia:
                 for line in lines:
                     linkList.append(line.split("\n")[0])
                 self.linkDict[city] = linkList
-                print(self.linkDict[city])
+                print("ensureLinks:",self.linkDict[city])
     '''
         crawl the page with specific information of housing estate,and save data in ./doc/data.xlsx
         Args:
@@ -74,7 +74,8 @@ class spiderForLianJia:
     '''
     def getDetailPage(self,link,city):
         cityDict=self.cityDict
-        regionOne = cityDict[city]
+        regionOne = self.cityDict[city]
+        print(regionOne)
         count = 0
         others = False
         cityFromURL= link.split("//")[1].split(".")[0]
@@ -100,8 +101,8 @@ class spiderForLianJia:
                             pageLinks.append(pageLink)
                             title = None
                             title = li.find("div",attrs={"class":"title"}).text.strip()
-
                             positionInfo= li.find("div",attrs={"class":"positionInfo"}).text.replace(" ","").replace("\n","").split("\xa0")
+                            typeOfHouse = None
                             regionTwo = positionInfo[0].strip()
                             regionThree = positionInfo[1].strip()
                             typeOfHouse = positionInfo[2]
@@ -111,7 +112,10 @@ class spiderForLianJia:
                                 typeOfHouse = typeOfHouse[:-1]
                             if len(typeOfHouse) == 0:
                                 typeOfHouse = "未知类型"
-                            buildYear = positionInfo[3].split("年")[0]
+                            if len(positionInfo)== 4:
+                                buildYear = positionInfo[3].split("年")[0]
+                            else:
+                                buildYear = "未知"
                             price = li.find("div",attrs={"class":"totalPrice"}).find("span").text.strip()
                             row = [regionOne,regionTwo,regionThree,others,title,typeOfHouse,buildYear,price]
                             print(row)
